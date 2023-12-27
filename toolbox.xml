@@ -1,0 +1,11 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+  <category name="IR" colour="#BDB76B" icon="signal">
+    <block type="yolouno_ir_create" />
+    <block type="yolouno_ir_on_receive"/>
+    <block type="yolouno_ir_remote_btn"/>
+    <block type="yolouno_ir_recv" />
+    <block type="yolouno_ir_code" />
+    <block type="yolouno_ir_raw_code" />
+    <block type="yolouno_ir_clear" />
+  </category>
+</xml>
