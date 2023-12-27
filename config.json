@@ -2,7 +2,7 @@
     "name": "IR Remote",
     "description": "Mục mở rộng của Yolo UNO sử dụng IR remote",
     "libs": [
-        "yolouno_ir_receiver.py"
+        "ir_receiver.py"
     ],
     "blocks": [
         "definition.js"

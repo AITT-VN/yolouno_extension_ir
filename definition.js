@@ -354,7 +354,7 @@ Blockly.Blocks["yolouno_ir_remote_btn"] = {
 Blockly.Python["yolouno_ir_create"] = function (block) {
   var pin = block.getFieldValue("pin");
   // TODO: Assemble Python into code variable.
-  Blockly.Python.definitions_['import_ir_receiver'] = 'from yolouno_ir_receiver import *';
+  Blockly.Python.definitions_['import_ir_receiver'] = 'from ir_receiver import *';
   Blockly.Python.definitions_['import_ir_receiver_init'] = 'ir_rx = IR_RX(' + pin + '_PIN)\nir_rx.start()';
   return '';
 };
