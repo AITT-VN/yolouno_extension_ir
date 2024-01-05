@@ -1,8 +1,9 @@
 {
     "name": "IR Remote",
-    "description": "Mục mở rộng của Yolo UNO sử dụng IR remote",
+    "description": "Thư viện cho cảm biến remote hồng ngoại IR receiver",
     "libs": [
-        "ir_receiver.py"
+        "ir_receiver.py",
+        "threadsafe_queue_ir.py"
     ],
     "blocks": [
         "definition.js"

@@ -10,6 +10,7 @@ from micropython import const
 import asyncio
 from setting import *
 from utility import *
+from threadsafe_queue_ir import ThreadSafeQueue
 
 # Save RAM
 from micropython import alloc_emergency_exception_buf
@@ -67,10 +68,11 @@ _EDGES = const(68)
 _TBLOCK = const(80)
 
 class IR_RX():
-    def __init__(self, pin, callback=None, error_callback=None):
+    def __init__(self, pin, callback=None, error_callback=None, *args): # Optional args for callback
         self._pin = Pin(pin, Pin.IN)
         self._callback = callback
         self._error_callback = error_callback
+        self.args = args
         self._tim = None
         self.verbose = False
 
@@ -84,6 +86,7 @@ class IR_RX():
         self._times = array('i',  (0 for _ in range(_EDGES + 1)))  # +1 for overrun
         self.edge = 0
         self.cb = self._decode
+        self.queue = ThreadSafeQueue([0 for _ in range(10)])
         self.start()
 
     # Pin interrupt. Save time of each edge for later decode.
@@ -168,7 +171,9 @@ class IR_RX():
                 self._last_key_pressed = self._key_pressed
 
             if self._callback:
-                self._callback(self._key_pressed, addr, ext)
+                self._callback(self._key_pressed, addr, ext, *self.args)
+            if not self.queue.full():
+                self.queue.put_sync((self._key_pressed, addr))
         else:
             self._raw_code = 'Unsupported code'
             if self.verbose:
